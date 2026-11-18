@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mono — программист: сайты, Telegram-боты, автоматизация</title>
+<meta name="description" content="Mono — программист. Делаю сайты, Telegram-ботов и автоматизацию: от лендинга до парсера. HTML, CSS, JavaScript, TypeScript, Python, Node.js.">
+<meta name="author" content="Mono">
+<link rel="canonical" href="https://virtuoso3004.github.io/mono-site/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mono">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Mono — программист: сайты, Telegram-боты, автоматизация">
+<meta property="og:description" content="Сайты, Telegram-боты и автоматизация под задачу. Один человек, один файл, без сборки.">
+<meta property="og:url" content="https://virtuoso3004.github.io/mono-site/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f2efe8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191917" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231b1b1d'/%3E%3Cpath d='M13 46V18l19 19 19-19v28' fill='none' stroke='%23f2efe8' stroke-width='6'/%3E%3Ccircle cx='51' cy='46' r='4.5' fill='%231e3fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2efe8;
+    --ink: #1b1b1d;
+    --ink-soft: #55524b;
+    --rule: #cdc8ba;
+    --accent: #1e3fff;
+    --ok: #146c3c;
+    --bad: #a5281f;
+    --ease-out: cubic-bezier(.23, 1, .32, 1);
+    --pad: clamp(1.25rem, 4vw, 3.5rem);
+    --measure: 76rem;
+    --row-name: minmax(0, 15rem);
+    color-scheme: light dark;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #191917;
+      --ink: #f2efe8;
+      --ink-soft: #a7a29a;
+      --rule: #3a3833;
+      --accent: #8fa2ff;
+      --ok: #79d9a2;
+      --bad: #ff9d95;
+    }
+  }
+
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .skip {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    z-index: 10;
+    padding: .6rem .9rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    font-size: .875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transform: translateY(-200%);
+  }
+
+  .skip:focus-visible { transform: none; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-left: max(var(--pad), env(safe-area-inset-left));
+    padding-right: max(var(--pad), env(safe-area-inset-right));
+  }
+
+  /* Header */
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: calc(clamp(1rem, 2.5vw, 1.5rem) + env(safe-area-inset-top));
+    padding-bottom: clamp(1rem, 2.5vw, 1.5rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .top__brand {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+    font-size: .8125rem;
+    font-weight: 500;
+    letter-spacing: -.005em;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .status__dot {
+    width: .4375rem;
+    height: .4375rem;
+    flex: none;
+    border-radius: 50%;
+    background: var(--ok);
+  }
+
+  /* Hero */
+
+  .hero {
+    container-type: inline-size;
+    padding-block: clamp(2.75rem, 8vw, 7rem) clamp(2.25rem, 6vw, 5rem);
+  }
+
+  .wordmark-mask {
+    margin: 0;
+    padding-top: .16em;
+    margin-top: -.16em;
+    padding-bottom: .06em;
+    margin-bottom: -.06em;
+    /* Клип по вертикали для анимации, с запасом по бокам: если
+       Onest не загрузится, точка не обрежется системным шрифтом. */
+    clip-path: inset(-.3em -.5em 0 -.5em);
+    font-size: min(26vw, 26rem);
+    font-size: min(35cqw, 26rem);
+    font-weight: 800;
+    line-height: .82;
+    letter-spacing: -.055em;
+    text-indent: -.035em;
+    text-wrap: nowrap;
+  }
+
+  .wordmark {
+    display: block;
+    animation: word-in 640ms var(--ease-out) both;
+  }
+
+  .wordmark__dot { color: var(--accent); }
+
+  .hero__phrase {
+    max-width: 34rem;
+    margin: clamp(1.75rem, 4.5vw, 3rem) 0 0;
+    font-size: clamp(1.25rem, 2.5vw, 1.8125rem);
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -.022em;
+    text-wrap: balance;
+    animation: phrase-in 460ms var(--ease-out) 200ms both;
+  }
+
+  /* Sections */
+
+  .section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    border-top: 1px solid var(--rule);
+    padding-block: clamp(1.75rem, 4.5vw, 3rem);
+  }
+
+  .section__title {
+    margin: 0;
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -.005em;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 56rem) {
+    .section {
+      grid-template-columns: 10.5rem minmax(0, 1fr);
+      gap: clamp(2rem, 5vw, 4.5rem);
+    }
+
+    .section__title { padding-top: .55rem; }
+  }
+
+  /* Rows */
+
+  .rows {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .2rem;
+    padding-block: clamp(.85rem, 2vw, 1.15rem);
+    border-top: 1px solid var(--rule);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 140ms var(--ease-out);
+  }
+
+  .row:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .row__name {
+    font-size: clamp(1.3125rem, 2.4vw, 1.6875rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -.03em;
+    transition: color 160ms ease;
+  }
+
+  .row__meta {
+    font-size: .9375rem;
+    line-height: 1.5;
+    letter-spacing: -.005em;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 44rem) {
+    .row {
+      grid-template-columns: var(--row-name) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: baseline;
+    }
+  }
+
+  .row--link .row__name { font-size: clamp(1.5rem, 3vw, 2.125rem); }
+
+  /* Copy row */
+
+  .row--copy {
+    width: 100%;
+    margin: 0;
+    padding-inline: 0;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--rule);
+    border-radius: 0;
+    font: inherit;
+    text-align: left;
+    cursor: copy;
+    appearance: none;
+  }
+
+  .row--copy:first-child { border-top: 0; }
+
+  .copy {
+    display: grid;
+    justify-items: start;
+  }
+
+  .copy > * { grid-area: 1 / 1; }
+
+  .copy__state {
+    opacity: 0;
+    transition: opacity 140ms ease;
+  }
+
+  .copy__state--done { color: var(--ok); }
+  .copy__state--fail { color: var(--bad); }
+
+  .row--copy.is-copied .copy__value { opacity: 0; }
+  .row--copy.is-copied .copy__state--done { opacity: 1; }
+  .row--copy.is-failed .copy__value { opacity: 0; }
+  .row--copy.is-failed .copy__state--fail { opacity: 1; }
+
+  /* Stack list */
+
+  .stack {
+    max-width: 42rem;
+    margin: 0;
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.75;
+    letter-spacing: -.015em;
+    text-wrap: balance;
+  }
+
+  .stack span { white-space: nowrap; }
+
+  /* Footer */
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .5rem 2rem;
+    padding-block: clamp(1.5rem, 3vw, 2rem) calc(clamp(1.5rem, 3vw, 2rem) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--rule);
+    font-size: .8125rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .footer p { margin: 0; }
+
+  /* Press feedback */
+
+  a:active,
+  button:active { transform: scale(.985); }
+
+  a { transition: transform 140ms var(--ease-out); }
+
+  .skip:active { transform: none; }
+
+  /* Hover only where a real pointer exists */
+
+  @media (hover: hover) and (pointer: fine) {
+    .row--link .row__name { transition: color 160ms ease; }
+
+    .row--link:hover .row__name { color: var(--accent); }
+
+    .row--copy:hover .row__name { color: var(--accent); }
+
+    .skip:hover { background: var(--ink); color: var(--paper); }
+  }
+
+  /* Entrance */
+
+  @keyframes word-in {
+    from { transform: translateY(115%); }
+  }
+
+  @keyframes phrase-in {
+    from {
+      opacity: 0;
+      transform: translateY(.35em);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark {
+      animation: word-in-quiet 220ms ease both;
+    }
+
+    .hero__phrase {
+      animation: phrase-in-quiet 220ms ease 80ms both;
+    }
+
+    a,
+    .row,
+    .row__name {
+      transition-property: color;
+    }
+
+    a:active,
+    button:active { transform: none; }
+
+    @keyframes word-in-quiet {
+      from { opacity: 0; }
+    }
+
+    @keyframes phrase-in-quiet {
+      from { opacity: 0; }
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#about">Перейти к содержанию</a>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top__brand">Mono</div>
+    <p class="status"><span class="status__dot" aria-hidden="true"></span>Принимаю заказы</p>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-wordmark">
+      <h1 class="wordmark-mask" id="hero-wordmark">
+        <span class="wordmark">Mono<span class="wordmark__dot">.</span></span>
+      </h1>
+      <p class="hero__phrase">Программист. Сайты, боты и всё, что можно автоматизировать.</p>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="work-title">
+      <h2 class="section__title" id="work-title">Что делаю</h2>
+      <ul class="rows">
+        <li class="row">
+          <span class="row__name">Сайты</span>
+          <span class="row__meta">Лендинги, портфолио, веб-интерфейсы</span>
+        </li>
+        <li class="row">
+          <span class="row__name">Telegram-боты</span>
+          <span class="row__meta">Заказы, оплата, уведомления, админка</span>
+        </li>
+        <li class="row">
+          <span class="row__name">Автоматизация</span>
+          <span class="row__meta">Парсинг, отчёты, связка сервисов</span>
+        </li>
+        <li class="row">
+          <span class="row__name">Всё остальное</span>
+          <span class="row__meta">Скрипты, утилиты, нестандартные задачи</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="stack-title">
+      <h2 class="section__title" id="stack-title">Чем работаю</h2>
+      <p class="stack"><span>HTML</span>, <span>CSS</span>, <span>JavaScript</span>, <span>TypeScript</span>, <span>Python</span>, <span>Node.js</span>, <span>Telegram Bot API</span>, <span>Git</span>, <span>Linux</span>.</p>
+    </section>
+
+    <section class="section" aria-labelledby="contacts-title">
+      <h2 class="section__title" id="contacts-title">Связаться</h2>
+      <div class="rows">
+        <a class="row row--link" href="https://t.me/virtuoso3004" target="_blank" rel="me noopener noreferrer">
+          <span class="row__name">Telegram</span>
+          <span class="row__meta">@virtuoso3004<span class="sr-only"> — откроется в новой вкладке</span></span>
+        </a>
+        <button class="row row--copy" type="button" data-copy="hi@virtuoso3004.dev" aria-label="Скопировать адрес hi@virtuoso3004.dev">
+          <span class="row__name">Email</span>
+          <span class="row__meta copy">
+            <span class="copy__value">hi@virtuoso3004.dev</span>
+            <span class="copy__state copy__state--done" aria-hidden="true">Скопировано</span>
+            <span class="copy__state copy__state--fail" aria-hidden="true">Не удалось</span>
+          </span>
+        </button>
+        <a class="row row--link" href="https://github.com/virtuoso3004" target="_blank" rel="me noopener noreferrer">
+          <span class="row__name">GitHub</span>
+          <span class="row__meta">virtuoso3004<span class="sr-only"> — откроется в новой вкладке</span></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year">2026</span> Mono</p>
+    <p>Свёрстано вручную: один файл, без сборки.</p>
+  </footer>
+</div>
+
+<p class="sr-only" id="copy-status" aria-live="polite"></p>
+
+<script>
+  (function () {
+    var year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+
+    var button = document.querySelector('[data-copy]');
+    var status = document.getElementById('copy-status');
+    if (!button) return;
+
+    var text = button.getAttribute('data-copy');
+    var timer;
+
+    function announce(message) {
+      if (!status) return;
+      status.textContent = '';
+      window.setTimeout(function () { status.textContent = message; }, 60);
+    }
+
+    function fallbackCopy(value) {
+      var field = document.createElement('textarea');
+      field.value = value;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.top = '0';
+      field.style.left = '-9999px';
+      field.style.opacity = '0';
+      document.body.appendChild(field);
+      field.select();
+      var copied = false;
+      try { copied = document.execCommand('copy'); } catch (error) { copied = false; }
+      document.body.removeChild(field);
+      return copied;
+    }
+
+    function copy(value) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(value).then(function () {
+          return true;
+        }, function () {
+          return fallbackCopy(value);
+        });
+      }
+      return Promise.resolve(fallbackCopy(value));
+    }
+
+    function show(state, message) {
+      button.classList.remove('is-copied', 'is-failed');
+      button.classList.add(state);
+      announce(message);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(function () {
+        button.classList.remove('is-copied', 'is-failed');
+      }, 2000);
+    }
+
+    button.addEventListener('click', function () {
+      copy(text).then(function (ok) {
+        if (ok) {
+          show('is-copied', 'Адрес скопирован');
+        } else {
+          show('is-failed', 'Не удалось скопировать адрес');
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
