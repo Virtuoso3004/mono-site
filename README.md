@@ -20,8 +20,8 @@ python3 -m http.server 8000
 
 | Что | Где | Текущее значение |
 | --- | --- | --- |
-| Telegram | `href="https://t.me/..."` | `@virtuoso3004` |
-| Email | `data-copy` и `aria-label` у кнопки | `hi@virtuoso3004.dev` |
+| Telegram | `href="https://t.me/..."` | `@monod0t` |
+| Email | `data-copy` и `aria-label` у кнопки | `alimahmetov111@gmail.com` |
 | GitHub | `href="https://github.com/..."` | `virtuoso3004` |
 
 Плюс адрес страницы в `<link rel="canonical">`, `og:url` и в `<title>`,
