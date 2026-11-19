@@ -1,0 +1,46 @@
+{
+  "ring-white": {
+    "x": 208,
+    "y": 209,
+    "w": 698,
+    "h": 802,
+    "left_pct": 16.59,
+    "top_pct": 16.67,
+    "width_pct": 55.66,
+    "height_pct": 63.96
+  },
+  "piece-blue": {
+    "x": 733,
+    "y": 251,
+    "w": 315,
+    "h": 727,
+    "left_pct": 58.45,
+    "top_pct": 20.02,
+    "width_pct": 25.12,
+    "height_pct": 57.97
+  },
+  "wordmark-mono-white": {
+    "x": 389,
+    "y": 527,
+    "w": 505,
+    "h": 111,
+    "left_pct": 31.02,
+    "top_pct": 42.03,
+    "width_pct": 40.27,
+    "height_pct": 8.85
+  },
+  "dot-blue": {
+    "x": 898,
+    "y": 605,
+    "w": 33,
+    "h": 31,
+    "left_pct": 71.61,
+    "top_pct": 48.25,
+    "width_pct": 2.63,
+    "height_pct": 2.47
+  },
+  "_canvas": {
+    "w": 1254,
+    "h": 1254
+  }
+}
