@@ -1,51 +1,53 @@
-# Mono — сайт-визитка
+# Mono. — сайт-визитка
 
-Одна страница, один файл: `index.html` с inline CSS и JS. Без фреймворков,
-сборки и npm. Единственная внешняя зависимость — шрифт Onest с Google Fonts,
-запасной вариант — system-ui.
+Одностраничный сайт фронтенд-разработчика Mono. Живая версия:
+**https://virtuoso3004.github.io/mono-site/**
 
-## Локальная проверка
+Один `index.html` с inline CSS и JS, без фреймворков и сборки. Единственная
+внешняя зависимость — Google Fonts (Unbounded и Golos Text).
+
+## Что внутри
+
+- Логотип собран из четырёх PNG-спрайтов в `assets/` по процентам из
+  `assets/positions.json`: кольцо, синий пазл, надпись MONO и точка.
+- Анимация сборки логотипа с магнитной `ease-in`-кривой, серой точкой
+  `#2b2f3a` до стыка, вспышкой, волной и синей точкой. Клик по логотипу
+  повторяет сборку.
+- `prefers-reduced-motion`: анимации отключаются, логотип сразу собран.
+- Две карточки проектов с CSS-превью и нативными `<dialog>`-окнами.
+  Открытие от точки клика, закрытие по фону и Esc.
+- Контакты: Telegram [@monod0t](https://t.me/monod0t) и
+  GitHub [Virtuoso3004](https://github.com/Virtuoso3004).
+- Mobile-first, проверено на 360–1440 px; safe-area, `touch-action`,
+  видимый `:focus-visible`, без горизонтального скролла.
+
+## Структура
+
+```
+index.html              страница целиком
+assets/
+  ring-white.png        белое кольцо
+  piece-blue.png        синий пазл
+  wordmark-mono-white.png
+  dot-blue.png
+  logo-full.png         фавикон и OG-изображение
+  positions.json        координаты спрайтов
+```
+
+## Локальный запуск
 
 ```bash
 python3 -m http.server 8000
 # http://localhost:8000
 ```
 
-Открыть файл напрямую тоже можно, но копирование адреса в буфер обмена
-работает только в защищённом контексте (https или localhost).
+## Публикация
 
-## Что заменить перед публикацией
+GitHub Pages: ветка `main`, корень репозитория. Страница пересобирается
+автоматически после пуша в `main`.
 
-Значения подставлены по данным из окружения. Проверьте три строки:
+## Контакты
 
-| Что | Где | Текущее значение |
-| --- | --- | --- |
-| Telegram | `href="https://t.me/..."` | `@monod0t` |
-| Email | `data-copy` и `aria-label` у кнопки | `alimahmetov111@gmail.com` |
-| GitHub | `href="https://github.com/..."` | `virtuoso3004` |
-
-Плюс адрес страницы в `<link rel="canonical">`, `og:url` и в `<title>`,
-если репозиторий будет называться иначе.
-
-## Публикация на GitHub Pages
-
-```bash
-git init -b main
-git add index.html README.md
-git commit -m "Mono: одностраничный сайт-визитка"
-git remote add origin https://github.com/ЛОГИН/mono-site.git
-git push -u origin main
-```
-
-Создать публичный репозиторий и включить Pages (нужен `gh` и авторизация):
-
-```bash
-gh repo create mono-site --public --source=. --remote=origin --push
-gh api --method POST repos/ЛОГИН/mono-site/pages \
-  -f "source[branch]=main" -f "source[path]=/"
-```
-
-Без `gh`: создайте репозиторий `mono-site` на github.com, запушьте `main`,
-затем Settings → Pages → Source: Deploy from a branch → `main`, папка `/ (root)`.
-Через минуту страница будет доступна по адресу
-`https://ЛОГИН.github.io/mono-site/`.
+- Telegram: https://t.me/monod0t
+- GitHub: https://github.com/Virtuoso3004
+- Бот: https://t.me/Mono_BeautyBot
